@@ -12,9 +12,6 @@ namespace DeStoofBot.Handlers
 {
     class DiscordHandler
     {
-        public delegate void MessageReceived(object sender, SocketMessage message);
-        public event MessageReceived messageReceived;
-
         public DiscordSocketClient client;
         private CommandService commands;
         private IServiceProvider services;

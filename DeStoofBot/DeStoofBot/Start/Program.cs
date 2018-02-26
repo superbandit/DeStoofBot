@@ -43,9 +43,9 @@ namespace DeStoofBot.Start
         {
             if (arg.Author.IsBot) return null;
             ircHandler.SendMessage("[" + DateTime.Now.ToShortTimeString() + "] " + ((IGuildUser)arg.Author).Nickname + ": " + arg.ToString());
-            form.AddText("[" + DateTime.Now.ToShortTimeString() + "]", true, System.Drawing.Color.Cyan);
-            form.AddText(((IGuildUser)arg.Author).Nickname + ": ", false, System.Drawing.Color.Chartreuse);
-            form.AddText(arg.ToString(), false, System.Drawing.Color.White);
+            form.BeginInvoke((Action)(() => form.AddText("[" + DateTime.Now.ToShortTimeString() + "]", true, System.Drawing.Color.Cyan)));
+            form.BeginInvoke((Action)(() => form.AddText(((IGuildUser)arg.Author).Nickname + ": ", false, System.Drawing.Color.Chartreuse)));
+            form.BeginInvoke((Action)(() => form.AddText(arg.ToString(), false, System.Drawing.Color.White)));
             return Task.CompletedTask;
         }
 
