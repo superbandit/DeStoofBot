@@ -35,6 +35,12 @@ namespace DeStoofBot.Handlers
             BackgroundWorker.RunWorkerAsync();
         }
 
+        public void StopConnection()
+        {
+            BackgroundWorker.CancelAsync();
+            ChatConnection.Disconnect();            
+        }
+
         public void ReceiveMessage(object sender, ProgressChangedEventArgs e)
         {
             string message = (string)e.UserState;

@@ -5,6 +5,7 @@ using DeStoofBot.Handlers;
 using DeStoofBot.UserForm;
 using DeStoofBot.EventArguments;
 using DeStoofBot.Models;
+using Discord.Commands;
 using Discord.WebSocket;
 using Discord;
 
@@ -41,7 +42,8 @@ namespace DeStoofBot.Start
 
         private Task Discord_MessageReceived(SocketMessage arg)
         {
-            if (arg.Author.IsBot) return null;
+
+            if (arg.Author.IsBot || arg.Channel != discordHandler.channel) return null;
             ircHandler.SendMessage("[" + DateTime.Now.ToShortTimeString() + "] " + ((IGuildUser)arg.Author).Nickname + ": " + arg.ToString());
             form.BeginInvoke((Action)(() => form.AddText("[" + DateTime.Now.ToShortTimeString() + "]", true, System.Drawing.Color.Cyan)));
             form.BeginInvoke((Action)(() => form.AddText(((IGuildUser)arg.Author).Nickname + ": ", false, System.Drawing.Color.Chartreuse)));

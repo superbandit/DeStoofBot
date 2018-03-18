@@ -38,6 +38,11 @@ namespace DeStoofBot.Irc
             }
         }
 
+        public void Disconnect()
+        {
+            _outputStream.WriteLine(":" + userName + "!" + userName + "@" + userName + ".tmi.twitch.tv PART #" + channel);
+        }
+
         public void SendIrcMessage(string message)
         {
             try
@@ -55,8 +60,7 @@ namespace DeStoofBot.Irc
         {
             try
             {
-                SendIrcMessage(":" + userName + "!" + userName + "@" + userName +
-                ".tmi.twitch.tv PRIVMSG #" + channel + " :" + message);
+                SendIrcMessage(":" + userName + "!" + userName + "@" + userName + ".tmi.twitch.tv PRIVMSG #" + channel + " :" + message);
             }
             catch (Exception ex)
             {

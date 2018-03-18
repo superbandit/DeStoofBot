@@ -15,7 +15,10 @@ namespace DeStoofBot.Handlers
         public DiscordSocketClient client;
         private CommandService commands;
         private IServiceProvider services;
-        
+
+        public SocketTextChannel channel;
+
+
         public async Task RunBotAsync()
         {
             client = new DiscordSocketClient();
@@ -34,7 +37,14 @@ namespace DeStoofBot.Handlers
             await RegisterCommandsAsync();
             await client.LoginAsync(TokenType.Bot, botToken);
             await client.StartAsync();
+            client.Ready += ClientReady;
             //await Task.Delay(-1);
+        }
+
+        private Task ClientReady()
+        {
+            channel = client.GetChannel(416714064283303956) as SocketTextChannel;
+            return Task.FromResult(0);
         }
 
         private Task Log(LogMessage arg)
@@ -52,13 +62,13 @@ namespace DeStoofBot.Handlers
 
         private async Task HandleCommandAsync(SocketMessage arg)
         {
-            SocketUserMessage message = arg as SocketUserMessage;
+            SocketUserMessage message = arg as SocketUserMessage;             
 
             if (message is null || message.Author.IsBot) return;
 
             int argPos = 0;
 
-            if (message.HasStringPrefix("!", ref argPos) || message.HasMentionPrefix(client.CurrentUser, ref argPos))
+            if (message.HasStringPrefix("!", ref argPos) && message.Channel == channel)
             {
                 SocketCommandContext context = new SocketCommandContext(client, message);
 

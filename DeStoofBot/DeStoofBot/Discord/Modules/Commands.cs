@@ -9,7 +9,7 @@ namespace DeStoofBot.Discord.Modules
         [Command("commands")]
         public async Task CommandsAsync()
         {
-            await ReplyAsync("Ik stuur aleen de twitchchat automatisch op :)");
+            await ReplyAsync("Ik stuur alleen de twitchchat automatisch op :)");
         }
 
         [Command("pleh")]
